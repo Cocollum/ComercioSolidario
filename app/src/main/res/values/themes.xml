@@ -1,0 +1,101 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.ComercioSolidario" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/green_200</item>
+        <item name="colorPrimaryVariant">@color/green_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
+    </style>
+    <style name="Theme.ComercioSolidario.Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@drawable/green_gradient_horizontal_background</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+        <!--item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item-->
+    </style>
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/white</item>
+    </style>
+    <style name="p">
+        <item name="android:textSize">16dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="h1">
+        <item name="android:textSize">24dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="h2">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="h3">
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="form_control">
+        <item name="android:background">@drawable/form_control_border</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:fontWeight">600</item>
+    </style>
+    <style name="card">
+        <item name="android:background">@drawable/card_border</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:fontWeight">600</item>
+    </style>
+    <style name="badge_pill">
+        <item name="android:background">@drawable/badge_pill</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+    <style name="btn_default">
+        <item name="android:padding">25dp</item>
+        <item name="android:backgroundTint">@color/green_700</item>
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:fontWeight">600</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:color">@color/white</item>
+    </style>
+    <style name="menu_item">
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

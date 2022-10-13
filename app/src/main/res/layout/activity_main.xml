@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.o2.comerciosolidario.viewmodels.HomeViewModel" />
+    </data>
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <LinearLayout
+            android:id="@+id/home_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Theme.ComercioSolidario.Toolbar">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitStart"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:srcCompat="@drawable/comercio_solidario_intro_1" />
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
+                    android:fontFamily="@font/fas_900"
+                    android:onClick="@{() -> viewModel.onClickOpenFilters()}"
+                    android:text="@string/fa_solid_search"
+                    android:textColor="@color/white"
+                    android:textAlignment="viewEnd"
+                    android:textSize="25dp" />
+            </androidx.appcompat.widget.Toolbar>
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@drawable/green_gradient_background"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header"
+            app:itemIconPadding="44dp"
+            app:itemIconSize="20dp"
+            app:itemMaxLines="2"
+            app:itemTextAppearance="@style/menu_item"
+            app:itemTextColor="@color/white"
+            app:menu="@menu/activity_home_navigation_drawer">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:padding="20dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:tag="https://www.facebook.com/generacion.o2.barcelona/"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_brands_facebook_f"
+                        android:fontFamily="@font/fab_400"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:clickable="true"
+                        android:onClick="@{(v) -> viewModel.onClickRRSS(v)}"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:tag="https://twitter.com/generacion_o2?lang=es"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_brands_twitter"
+                        android:fontFamily="@font/fab_400"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:clickable="true"
+                        android:onClick="@{(v) -> viewModel.onClickRRSS(v)}"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:tag="https://www.instagram.com/generacion_o2/?hl=es"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_brands_instagram"
+                        android:fontFamily="@font/fab_400"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:clickable="true"
+                        android:onClick="@{(v) -> viewModel.onClickRRSS(v)}"
+                        android:layout_marginRight="20dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fa_regular_question_circle"
+                        android:fontFamily="@font/far_400"
+                        android:textColor="@color/white"
+                        android:textSize="24dp"
+                        android:clickable="true"
+                        android:onClick="@{() -> viewModel.onClickIntro()}"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/version_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </com.google.android.material.navigation.NavigationView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/overlay"
+            android:orientation="horizontal"
+            android:visibility="@{viewModel.filtersVisibility ? View.VISIBLE : View.GONE}">
+            <Button
+                android:background="@android:color/transparent"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:onClick="@{() -> viewModel.onClickCloseFilters()}"
+                android:text="@string/fa_solid_times"
+                android:textColor="@color/white"
+                android:fontFamily="@font/fas_900"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/green_gradient_background"
+                android:orientation="vertical"
+                android:padding="50dp"
+                android:gravity="center">
+                <TableLayout
+                    android:id="@+id/filtered_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:entries="@{viewModel.filters}"
+                    app:layout="@{@layout/filter_checkbox_row}"
+                    app:viewModel="@{viewModel}"
+                    />
+                <CheckBox
+                    android:id="@+id/check_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:checked="true"
+                    android:text="Marcar/quitar todo"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:onClick="@{(v) -> viewModel.onChangeCheckAllCheckbox(v)}" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="10sp"
+                    android:background="@android:color/white"/>
+                <CheckBox
+                    android:id="@+id/lgbti_friendly"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:checked="@={viewModel.lgtbi_friendly_checked}"
+                    android:text="LGBTI Friendly"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+                <CheckBox
+                    android:id="@+id/lgbti_plus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:checked="@={viewModel.lgtbi_plus_checked}"
+                    android:text="LGBTI+"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

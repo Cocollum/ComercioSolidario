@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.o2.comerciosolidario.viewmodels.RegisterViewModel" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:background="@drawable/green_gradient_horizontal_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/fas_900"
+                    android:onClick="@{() -> viewModel.onClickClose()}"
+                    android:padding="0dp"
+                    android:text="@string/fa_solid_chevron_left"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="25dp" />
+                <TextView
+                    style="@style/h2"
+                    android:textFontWeight="900"
+                    android:layout_margin="0dp"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textEnd"
+                    android:text="Unirse al club"/>
+            </LinearLayout>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+                    <TextView
+                        style="@style/h3"
+                        android:textColor="@color/daynight_black"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="A. Datos de la empresa"/>
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.bussiness.bussiness_name}"
+                        android:hint="Nombre fiscal" />
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.bussiness.city}"
+                        android:hint="Localidad" />
+
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Código postal"
+                        android:inputType="number"
+                        android:text="@={viewModel.bussiness.postal_code}" />
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.bussiness.province}"
+                        android:hint="Provincia" />
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.bussiness.bussiness_vat_number}"
+                        android:hint="NIF" />
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.bussiness.address}"
+                        android:hint="Dirección" />
+
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Teléfono"
+                        android:inputType="phone"
+                        android:text="@={viewModel.bussiness.bussiness_phone}" />
+
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Teléfono móvil"
+                        android:inputType="phone"
+                        android:text="@={viewModel.bussiness.bussiness_phone_alt}" />
+
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Correo electrònico"
+                        android:inputType="textEmailAddress"
+                        android:text="@={viewModel.bussiness.bussiness_email}" />
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.bussiness.activity}"
+                        android:hint="Actividad" />
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sector_spinner"
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/interest_list"
+                        android:selectedItemPosition="@={viewModel.sector}"
+                        android:hint="Sector" />
+                    <EditText
+                        style="@style/form_control"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.bussiness.sector_other}"
+                        android:hint="Sector" />
+                    <Switch
+                    style="@style/form_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.bussiness.bussiness_lgtbi}"
+                    android:hint="LGTBI friendly" />
+                    <Switch
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.bussiness.bussiness_lgtbi_plus}"
+                        android:hint="LGTBI+" />
+                    <TextView
+                        style="@style/p"
+                        android:textColor="@color/daynight_black"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Redes sociales" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            style="@style/p"
+                            android:textColor="@color/daynight_black"
+                            android:fontFamily="@font/fab_400"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fa_brands_facebook_f"
+                            android:layout_marginEnd="15dp"/>
+                        <EditText
+                            style="@style/form_control"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            style="@style/p"
+                            android:textColor="@color/daynight_black"
+                            android:fontFamily="@font/fab_400"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fa_brands_instagram"
+                            android:layout_marginEnd="15dp"/>
+                        <EditText
+                            style="@style/form_control"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            style="@style/p"
+                            android:textColor="@color/daynight_black"
+                            android:fontFamily="@font/fab_400"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fa_brands_linkedin_in"
+                            android:layout_marginEnd="15dp"/>
+                        <EditText
+                            style="@style/form_control"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            style="@style/p"
+                            android:textColor="@color/daynight_black"
+                            android:fontFamily="@font/fab_400"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fa_brands_twitter"
+                            android:layout_marginEnd="15dp"/>
+                        <EditText
+                            style="@style/form_control"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="" />
+                    </LinearLayout>
+                    <TextView
+                        style="@style/h3"
+                        android:textColor="@color/daynight_black"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="B. Datos de persona de contacto en la empresa"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.bussiness.contact_freelance}"
+                            android:onCheckedChanged="@{(view, checked) -> viewModel.onContactFreelanceChange(view, checked)}"/>
+                        <TextView
+                            android:textColor="@color/daynight_black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="¿Eres autónomo?" />
+                    </LinearLayout>
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.bussiness.contact_name}"
+                        android:hint="Nombre"/>
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.bussiness.contact_lastname}"
+                        android:hint="Apellidos" />
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.bussiness.contact_vat_number}"
+                        android:hint="DNI/NIE" />
+
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Correo electrónico"
+                        android:inputType="textEmailAddress"
+                        android:text="@={viewModel.bussiness.contact_email}" />
+
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Teléfono"
+                        android:inputType="phone"
+                        android:text="@={viewModel.bussiness.contact_phone}" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.bussiness.contact_club}"/>
+                        <TextView
+                            style="@style/h3"
+                            android:textColor="@color/daynight_black"
+                            android:textStyle="bold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="C. También quiero ser socio del Club Go2"/>
+                    </LinearLayout>
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nombre"
+                        android:text="@={viewModel.bussiness.partner_name}" />
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Apellidos"
+                        android:text="@={viewModel.bussiness.partner_lastname}" />
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Correo electrónico"
+                        android:text="@={viewModel.bussiness.partner_email}" />
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Teléfono"
+                        android:text="@={viewModel.bussiness.partner_phone}" />
+                    <EditText
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Fecha de nacimiento"
+                        android:inputType="date"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:onClick="@{() -> viewModel.onClickBirthday()}"
+                        android:text="@={viewModel.bussiness.partner_birthday}" />
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/genre_spinner"
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/genre_list"
+                        android:selectedItemPosition="@={viewModel.bussiness_genre}"
+                        android:hint="Genero" />
+                    <com.o2.comerciosolidario.utils.MultiSpinner
+                        android:id="@+id/interest"
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/interest_list"
+
+                        android:hint="Intereses" />
+                    <Switch
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.bussiness.partner_lgtbi}"
+                        android:hint="LGTBI friendly" />
+                    <Switch
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="@={viewModel.bussiness.partner_lgtbi_plus}"
+                        android:hint="LGTBI+" />
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        style="@style/form_control"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/type_list"
+                        android:selectedItemPosition="@={viewModel.contact_type}"
+                        android:hint="Sumarme como" />
+                    <TextView
+                        style="@style/h3"
+                        android:textColor="@color/daynight_black"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="D. Términos y condiciones"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:textColor="@color/daynight_black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:onClick="@{() -> viewModel.onClickPrivacyPolicy()}"
+                            android:text="Acepto los términos y condiciones de Generación o2" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:textColor="@color/daynight_black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Acepto recibir información comercial de parte del Club Go2" />
+                    </LinearLayout>
+
+                    <Button
+                        style="@style/btn_default"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Enviar"
+                        android:onClick="@{() -> viewModel.onClickRegister()}"/>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ok_recover_password"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/green_gradient_background"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_marginBottom="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/form_ok_comercio_solidario" />
+
+                <TextView
+                    style="@style/p"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Se ha registrado el formulario correctamente.\n\n En breves recibirás un correo de confirmación.\n\n Gracias por unirte al Club Go2."
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+            <Button
+                style="@style/btn_default"
+                android:backgroundTint="@color/green_900"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onClickClose()}"
+                android:text="Volver" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fail_recover_password"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/orange_gradient_background"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_marginBottom="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/form_fail_comercio_solidario" />
+
+                <TextView
+                    style="@style/p"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hubo un fallo al enviar el formulario.\n\nRevisa los campos y vuelve a probar.\n\nSi el fallo persiste, ponte en contacto con nosotros a través del correo electrónico: info@generacion-o2.org"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+            <Button
+                style="@style/btn_default"
+                android:backgroundTint="@color/orange_700"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Atrás"
+                android:onClick="@{() -> viewModel.onClickBack()}"/>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

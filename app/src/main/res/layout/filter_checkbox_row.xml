@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.o2.comerciosolidario.viewmodels.HomeViewModel" />
+        <variable
+            name="data"
+            type="String" />
+    </data>
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/white"
+        android:checked="true"
+        android:text="@{data}"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:onClick="@{(v) -> viewModel.onChangeFilterCheckbox(v)}" />
+</layout>

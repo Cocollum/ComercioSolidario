@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Club Go2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="dashboard">Home</string>
+    <string name="login">Mostrar identificación</string>
+    <string name="intro">Introducción</string>
+    <string name="club">Únete al club</string>
+    <string name="register">¿Eres un comercio y te gustaria agregarte?</string>
+    <string name="how_to">¿Como me hago socio?</string>
+    <string name="contact">Contacta con nosotros</string>
+    <string name="about_us">Sobre Go2</string>
+    <string name="logout">Salir</string>
+
+    <string name="user_number"><b>nº socio</b></string>
+</resources>

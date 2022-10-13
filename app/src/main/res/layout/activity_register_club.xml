@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.o2.comerciosolidario.viewmodels.RegisterViewModel" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:background="@drawable/green_gradient_horizontal_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/fas_900"
+                    android:onClick="@{() -> viewModel.onClickClose()}"
+                    android:padding="0dp"
+                    android:text="@string/fa_solid_chevron_left"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="25dp" />
+                <TextView
+                    style="@style/h2"
+                    android:textFontWeight="900"
+                    android:layout_margin="0dp"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textEnd"
+                    android:text="Unirse al club"/>
+            </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="35dp"
+                >
+                <EditText
+                    style="@style/form_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.name}"
+                    android:hint="Nombre" />
+                <EditText
+                    style="@style/form_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.lastname}"
+                    android:hint="Apellidos" />
+
+                <!--EditText
+                    style="@style/form_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="DNI/NIF"
+                    android:text="@={viewModel.vat_number}" /-->
+
+                <EditText
+                    style="@style/form_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Correo electrónico"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.email}" />
+
+                <EditText
+                    style="@style/form_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Teléfono"
+                    android:inputType="phone"
+                    android:text="@={viewModel.phone}" />
+
+                <EditText
+                    style="@style/form_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Fecha de nacimiento"
+                    android:inputType="date"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:onClick="@{() -> viewModel.onClickBirthday()}"
+                    android:text="@={viewModel.birthday}" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/genre_spinner"
+                    style="@style/form_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/genre_list"
+                    android:selectedItemPosition="@={viewModel.genre}"
+                    android:hint="Genero" />
+                <com.o2.comerciosolidario.utils.MultiSpinner
+                    android:id="@+id/interest"
+                    style="@style/form_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/interest_list"
+
+                    android:hint="Intereses" />
+                <Switch
+                    style="@style/form_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.lgtbi}"
+                    android:hint="LGTBI friendly" />
+                <Switch
+                    style="@style/form_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.lgtbi_plus}"
+                    android:hint="LGTBI+" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <CheckBox
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"/>
+                    <TextView
+                        android:textColor="@color/daynight_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:onClick="@{() -> viewModel.onClickPrivacyPolicy()}"
+                        android:text="He leido y acepto la política de privacidad"
+                        />
+                </LinearLayout>
+                <Button
+                    style="@style/btn_default"
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.onClickRegister()}"
+
+                    android:text="Aceptar" />
+            </LinearLayout>
+        </ScrollView>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ok_recover_password"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/green_gradient_background"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_marginBottom="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/form_ok_comercio_solidario" />
+
+                <TextView
+                    style="@style/p"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Se ha registrado el formulario correctamente.\n\n En breves recibirás un correo de confirmación.\n\n Gracias por unirte al Club Go2."
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+            <Button
+                style="@style/btn_default"
+                android:backgroundTint="@color/green_900"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onClickClose()}"
+                android:text="Volver" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fail_recover_password"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/orange_gradient_background"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_marginBottom="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/form_fail_comercio_solidario" />
+
+                <TextView
+                    style="@style/p"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hubo un fallo al enviar el formulario.\n\nRevisa los campos y vuelve a probar.\n\nSi el fallo persiste, ponte en contacto con nosotros a través del correo electrónico: info@generacion-o2.org"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+            <Button
+                style="@style/btn_default"
+                android:backgroundTint="@color/orange_700"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Atrás"
+                android:onClick="@{() -> viewModel.onClickBack()}"/>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

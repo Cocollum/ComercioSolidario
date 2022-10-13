@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.o2.comerciosolidario.viewmodels.LoginViewModel" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="fill_parent">
+            <LinearLayout
+                android:background="@drawable/green_gradient_horizontal_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/fas_900"
+                    android:onClick="@{() -> viewModel.onClickClose()}"
+                    android:padding="0dp"
+                    android:text="@string/fa_solid_chevron_left"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white"
+                    android:textSize="25dp" />
+                <TextView
+                    style="@style/h2"
+                    android:textFontWeight="900"
+                    android:layout_margin="0dp"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textEnd"
+                    android:text="Mostrar identificación"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/h3"
+                    android:textColor="@color/daynight_black"
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="50dp"
+                    android:text="Introduce tus datos de acceso para poder ver tu identificación" />
+
+                <EditText
+                    style="@style/form_control"
+                    android:id="@+id/editTextTextEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="E-mail"
+                    android:text="@={viewModel.username}"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    style="@style/form_control"
+                    android:id="@+id/editTextTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:text="@={viewModel.password}"
+                    android:inputType="textPassword" />
+
+                <TextView
+                    style="@style/p"
+                    android:textColor="@color/green_500"
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="50dp"
+                    android:text="¿No recuerdas tu contraseña?"
+                    android:clickable="true"
+                    android:onClick="@{() -> viewModel.onClickRecoverPassword()}" />
+
+                <Button
+                    style="@style/btn_default"
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.onClickLogin()}"
+
+                    android:text="Aceptar" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/fail_recover_password"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/orange_gradient_background"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_marginBottom="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/form_fail_comercio_solidario" />
+
+                <TextView
+                    style="@style/p"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="El correo electrónico o la contraseña introducidas no son correctas, comprueba tus datos y vuelve a intentarlo"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+                <TextView
+                    style="@style/p"
+                    android:layout_marginTop="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="¿No recuerdas tu contraseña?"
+                    android:textAlignment="center"
+                    android:clickable="true"
+                    android:onClick="@{() -> viewModel.onClickRecoverPassword()}"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+            <Button
+                style="@style/btn_default"
+                android:backgroundTint="@color/orange_700"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Atrás"
+                android:onClick="@{() -> viewModel.onClickBack()}"/>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

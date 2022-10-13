@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.o2.comerciosolidario.viewmodels.HomeViewModel" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mapView"
+            tools:context=".HomeContentFragment" />
+
+        <LinearLayout
+            android:visibility="@{viewModel.view_offer ? View.VISIBLE : View.GONE}"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/h1"
+                        android:textFontWeight="900"
+                        android:id="@+id/textView"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.offer_name}" />
+
+                    <TextView
+                        style="@style/p"
+                        android:textStyle="italic"
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.offer_address}" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/fas_900"
+                    android:foregroundTint="@android:color/transparent"
+                    android:onClick="@{() -> viewModel.onClickViewOffer(viewModel.offer_tag)}"
+                    android:padding="0dp"
+                    android:text="@string/fa_solid_plus"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/green_200"
+                    android:textSize="30dp" />
+
+            </LinearLayout>
+
+            <TableLayout
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:entries="@{viewModel.offer_tag.offers_home}"
+                app:layout="@{@layout/offer_row}"
+                app:viewModel="@{viewModel}"/>
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.o2.comerciosolidario.viewmodels.OfferViewModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:background="@drawable/green_gradient_horizontal_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/fas_900"
+                android:onClick="@{() -> viewModel.onClickClose()}"
+                android:padding="0dp"
+                android:text="@string/fa_solid_chevron_left"
+                android:textAlignment="viewStart"
+                android:textColor="@color/white"
+                android:textSize="25dp" />
+            <TextView
+                style="@style/h2"
+                android:textFontWeight="900"
+                android:layout_margin="0dp"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
+                android:text="@{viewModel.offer.name}"/>
+        </LinearLayout>
+        <ScrollView android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:padding="25dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="25dp"
+                        >
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            app:fragment_adapter="@{viewModel.image_fragments}" />
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tabDots"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_gravity="bottom"
+                            android:background="@android:color/transparent"
+                            app:pager="@{pager}"
+                            app:tabBackground="@drawable/tab_selector"
+                            app:tabGravity="center"
+                            app:tabIndicatorHeight="0dp" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fa_solid_map_marker_alt"
+                            android:fontFamily="@font/fas_900"
+                            android:textColor="@color/green_500"
+                            android:layout_marginRight="15dp"
+                            android:textSize="30dp"
+                            />
+                        <TextView
+                            style="@style/p"
+                            android:textColor="@color/daynight_black"
+                            android:layout_margin="0dp"
+                            android:textStyle="italic"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@{viewModel.offer.coords.formattedAddress}" />
+                    </LinearLayout>
+                    <GridLayout
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="25dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:useDefaultMargins="true"
+                        android:alignmentMode="alignBounds"
+                        android:columnOrderPreserved="false"
+                        android:columnCount="4"
+                        app:entries="@{viewModel.offer.tags}"
+                        app:layout="@{@layout/tag_pill}"
+                        app:viewModel="@{viewModel}"
+                        />
+                    <TextView
+                        style="@style/p"
+                        android:color="@color/daynight_black"
+                        android:textColor="@color/daynight_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.offer.description}"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@color/green_100"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="25dp">
+                    <TextView
+                        style="@style/h1"
+                        android:textFontWeight="900"
+                        android:textColor="@color/green_500"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ofertas socios de Go2" />
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:entries="@{viewModel.offer.offers}"
+                        app:layout="@{@layout/offer_row}"
+                        app:viewModel="@{viewModel}"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:padding="25dp">
+                    <Button
+                        style="@style/btn_default"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mostrar identificación"
+                        android:onClick="@{() -> viewModel.onClickShowCredentials()}" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>
