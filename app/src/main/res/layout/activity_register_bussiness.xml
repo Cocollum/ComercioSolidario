@@ -306,7 +306,8 @@
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="@={viewModel.bussiness.contact_club}"/>
+                            android:checked="@={viewModel.bussiness.contact_club}"
+                            android:onCheckedChanged="@{(view, checked) -> viewModel.onContactClubChange(view, checked)}"/>
                         <TextView
                             style="@style/h3"
                             android:textColor="@color/daynight_black"

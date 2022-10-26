@@ -93,16 +93,14 @@ public class RegisterBussinessActivity extends AppController {
 
             viewModel.setBussiness(bussiness);
         });
-        viewModel.didChangeContactFreelance.observe(this, (value) -> {
+        viewModel.didChangeContactClub.observe(this, (value) -> {
             Bussiness bussiness = viewModel.getBussiness();
             if(value == true){
-                bussiness.setContact_name(bussiness.getBussiness_name());
-                bussiness.setContact_vat_number(bussiness.getBussiness_vat_number());
+                bussiness.setPartner_name(bussiness.getBussiness_name());
                 bussiness.setContact_email(bussiness.getBussiness_email());
                 bussiness.setContact_phone(bussiness.getBussiness_phone());
             }else{
-                bussiness.setContact_name("");
-                bussiness.setContact_vat_number("");
+                bussiness.setPartner_name("");
                 bussiness.setContact_email("");
                 bussiness.setContact_phone("");
             }
