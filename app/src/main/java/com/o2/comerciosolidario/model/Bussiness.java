@@ -18,6 +18,11 @@ public class Bussiness {
     private String sector_other = "";
     private Boolean bussiness_lgtbi = false;
     private Boolean bussiness_lgtbi_plus = false;
+    private String facebook="";
+    private String instagram="";
+    private String linkedin="";
+    private String tweeter="";
+    private String [] social_media ={};
     private Boolean contact_freelance = false;
     private Boolean contact_club = false;
     private String contact_name = "";
@@ -35,6 +40,7 @@ public class Bussiness {
     private Boolean partner_lgtbi = false;
     private Boolean partner_lgtbi_plus = false;
     private String partner_type = "";
+
 
 
     public String getBussiness_name() {
@@ -215,6 +221,43 @@ public class Bussiness {
         this.bussiness_lgtbi_plus = bussiness_lgtbi_plus;
     }
 
+    public String[] getSocial_media() {
+        social_media= new String[] {getFacebook(), getInstagram(), getLinkedin(), getTweeter()};
+        return social_media;
+    }
+
+    public void setSocial_media(String[] social_media) {
+        this.social_media = social_media;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public String getLinkedin() {
+        return linkedin;
+    }
+    public void setLinkedin(String linkedin) {
+        this.linkedin = linkedin;
+    }
+    public String getTweeter() {
+        return tweeter;
+    }
+    public void setTweeter(String tweeter) {
+        this.tweeter = tweeter;
+    }
+
     public String getPartner_name() {
         return partner_name;
     }
@@ -302,6 +345,7 @@ public class Bussiness {
             obj.put("bussiness_lgbti_plus", bussiness_lgtbi_plus);
             obj.put("activity", activity);
             obj.put("sector", sector);
+            obj.put("social_media", social_media);
             obj.put("sector_other", sector_other);
             obj.put("contact_freelance", contact_freelance);
             obj.put("contact_club", contact_club);
