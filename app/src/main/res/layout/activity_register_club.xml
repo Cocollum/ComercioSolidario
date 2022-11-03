@@ -112,14 +112,15 @@
                     android:entries="@array/genre_list"
                     android:selectedItemPosition="@={viewModel.genre}"
                     android:hint="Genero" />
+
                 <com.o2.comerciosolidario.utils.MultiSpinner
                     android:id="@+id/interest"
                     style="@style/form_control"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/interest_list"
-
                     android:hint="Intereses" />
+
                 <Switch
                     style="@style/form_control"
                     android:layout_width="match_parent"

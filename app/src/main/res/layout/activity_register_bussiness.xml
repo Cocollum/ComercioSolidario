@@ -128,14 +128,16 @@
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.bussiness.activity}"
                         android:hint="Actividad" />
+
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/sector_spinner"
-                        style="@style/form_control"
+                        style="@style/spinner_style"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:entries="@array/interest_list"
-                        android:selectedItemPosition="@={viewModel.sector}"
-                        android:hint="Sector" />
+                        android:hint="Sector"
+                        android:selectedItemPosition="@={viewModel.sector}" />
+
                     <EditText
                         style="@style/form_control"
                         android:visibility="gone"
@@ -143,6 +145,7 @@
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.bussiness.sector_other}"
                         android:hint="Sector" />
+
                     <Switch
                     style="@style/form_control"
                     android:layout_width="match_parent"
@@ -303,7 +306,8 @@
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="@={viewModel.bussiness.contact_club}"/>
+                            android:checked="@={viewModel.bussiness.contact_club}"
+                            android:onCheckedChanged="@{(view, checked) -> viewModel.onContactClubChange(view, checked)}"/>
                         <TextView
                             style="@style/h3"
                             android:textColor="@color/daynight_black"
@@ -347,14 +351,15 @@
                         android:clickable="true"
                         android:onClick="@{() -> viewModel.onClickBirthday()}"
                         android:text="@={viewModel.bussiness.partner_birthday}" />
+
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/genre_spinner"
-                        style="@style/form_control"
+                        style="@style/spinner_style"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:entries="@array/genre_list"
-                        android:selectedItemPosition="@={viewModel.bussiness_genre}"
-                        android:hint="Genero" />
+                        android:hint="Genero"
+                        android:selectedItemPosition="@={viewModel.bussiness_genre}" />
                     <com.o2.comerciosolidario.utils.MultiSpinner
                         android:id="@+id/interest"
                         style="@style/form_control"

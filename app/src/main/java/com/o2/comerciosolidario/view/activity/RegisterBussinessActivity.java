@@ -1,8 +1,10 @@
 package com.o2.comerciosolidario.view.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,12 +17,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.o2.comerciosolidario.R;
 import com.o2.comerciosolidario.app.AppController;
+
 import com.o2.comerciosolidario.databinding.ActivityRegisterBussinessBinding;
 import com.o2.comerciosolidario.databinding.ActivityRegisterClubBinding;
 import com.o2.comerciosolidario.model.Bussiness;
@@ -57,12 +61,21 @@ public class RegisterBussinessActivity extends AppController {
         binding.setViewModel(viewModel);
 
         AppCompatSpinner genre_spinner = ((AppCompatSpinner) findViewById(R.id.genre_spinner));
-
         this.configureSpinner(genre_spinner, getResources().getStringArray(R.array.genre_list));
+        genre_spinner.setSelection(0, false);
+        TextView selectedView = (TextView) genre_spinner.getSelectedView();
+        if (selectedView != null) {
+            selectedView.setTextColor(getResources().getColor(R.color.gray));
+        }
 
         AppCompatSpinner sector_spinner = ((AppCompatSpinner) findViewById(R.id.sector_spinner));
-
         this.configureSpinner(sector_spinner, getResources().getStringArray(R.array.interest_list));
+        sector_spinner.setSelection(0, false);
+        TextView selected_View = (TextView) sector_spinner.getSelectedView();
+        if (selected_View != null) {
+            selected_View.setTextColor(getResources().getColor(R.color.gray));
+        }
+
 
         viewModel.didChangeContactFreelance.observe(this, (value) -> {
             Bussiness bussiness = viewModel.getBussiness();
@@ -74,6 +87,20 @@ public class RegisterBussinessActivity extends AppController {
             }else{
                 bussiness.setContact_name("");
                 bussiness.setContact_vat_number("");
+                bussiness.setContact_email("");
+                bussiness.setContact_phone("");
+            }
+
+            viewModel.setBussiness(bussiness);
+        });
+        viewModel.didChangeContactClub.observe(this, (value) -> {
+            Bussiness bussiness = viewModel.getBussiness();
+            if(value == true){
+                bussiness.setPartner_name(bussiness.getBussiness_name());
+                bussiness.setContact_email(bussiness.getBussiness_email());
+                bussiness.setContact_phone(bussiness.getBussiness_phone());
+            }else{
+                bussiness.setPartner_name("");
                 bussiness.setContact_email("");
                 bussiness.setContact_phone("");
             }
@@ -146,7 +173,13 @@ public class RegisterBussinessActivity extends AppController {
         });
     }
 
-    private void configureSpinner(AppCompatSpinner spinner, String[] list){
+    private void configureSpinner(AppCompatSpinner spinner, String[] list) {
+
+        spinner.setSelection(0, false);
+        TextView selectedView = (TextView) spinner.getSelectedView();
+        if (selectedView != null) {
+            selectedView.setTextAppearance(getBaseContext(),R.style.spinner_style );
+        }
 
         SpinnerAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list) {
 
@@ -154,27 +187,21 @@ public class RegisterBussinessActivity extends AppController {
             public boolean isEnabled(int position) {
                 if (position == 0) {
                     // Disable the first item from Spinner
-                    // First item will be use for hint
+                    // First item will be used for hint
                     return false;
                 } else {
                     return true;
                 }
             }
 
+
             @Override
             public View getDropDownView(int position, View convertView,
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if (position == 0) {
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                } else {
-                    tv.setTextColor(Color.BLACK);
-                }
+
                 return view;
             }
-
         };
 
         if(spinner != null) {
@@ -191,7 +218,6 @@ public class RegisterBussinessActivity extends AppController {
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(Color.GRAY);
-
                 }
             });
             spinner.setAdapter(adapter);
