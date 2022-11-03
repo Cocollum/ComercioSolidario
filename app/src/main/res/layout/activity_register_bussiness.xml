@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="textEnd"
-                    android:text="Unirse al club"/>
+                    android:text="Únete al club"/>
             </LinearLayout>
             <ScrollView
                 android:layout_width="match_parent"
@@ -52,7 +52,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="15dp">
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="35dp"
+                    android:paddingRight="35dp">
                     <TextView
                         style="@style/h3"
                         android:textColor="@color/daynight_black"
@@ -375,13 +378,6 @@
                         android:layout_height="wrap_content"
                         android:checked="@={viewModel.bussiness.partner_lgtbi_plus}"
                         android:hint="LGTBI+" />
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        style="@style/form_control"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/type_list"
-                        android:selectedItemPosition="@={viewModel.contact_type}"
-                        android:hint="Sumarme como" />
                     <TextView
                         style="@style/h3"
                         android:textColor="@color/daynight_black"
@@ -418,7 +414,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Acepto recibir información comercial de parte del Club Go2" />
+                            android:text="Acepto recibir información comercial y ofertas de parte del Club Go2" />
                     </LinearLayout>
 
                     <Button

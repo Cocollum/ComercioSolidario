@@ -42,8 +42,10 @@
                 android:textAlignment="textEnd"
                 android:text="@{viewModel.offer.name}"/>
         </LinearLayout>
-        <ScrollView android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +66,7 @@
                         <androidx.viewpager.widget.ViewPager
                             android:id="@+id/pager"
                             android:layout_width="match_parent"
-                            android:layout_height="250dp"
+                            android:layout_height="150dp"
                             app:fragment_adapter="@{viewModel.image_fragments}" />
 
                         <com.google.android.material.tabs.TabLayout
@@ -137,7 +139,7 @@
                         android:textColor="@color/green_500"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Ofertas socios de Go2" />
+                        android:text="Ofertas para socios de Go2" />
                     <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -146,20 +148,22 @@
                         app:viewModel="@{viewModel}"
                         />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:padding="25dp">
-                    <Button
-                        style="@style/btn_default"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mostrar identificación"
-                        android:onClick="@{() -> viewModel.onClickShowCredentials()}" />
-                </LinearLayout>
             </LinearLayout>
         </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp" >
+            <Button
+                style="@style/btn_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mostrar identificación"
+                android:onClick="@{() -> viewModel.onClickShowCredentials()}" />
+        </LinearLayout>
     </LinearLayout>
 </layout>

@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -112,6 +113,7 @@ public class ProfileActivity extends AppController implements AsyncResponse {
     @Override
     public void processFinish(String output) {
         try{
+            Log.d("processFinish image",output);
             JSONObject obj = new JSONObject(output);
             if(obj.getInt("status") == 200){
                 user.setAvatar((new JSONObject(obj.getString("data"))).getString("image_url"));

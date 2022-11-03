@@ -77,7 +77,7 @@ public class MainActivity extends AppController implements NavigationView.OnNavi
         drawerLayout.addDrawerListener(this);
 
         TextView version = (TextView) navigationView.findViewById(R.id.version_text);
-        version.setText("Version: " + BuildConfig.VERSION_NAME);
+        //version.setText("Version: " + BuildConfig.VERSION_NAME);
 
         View header = navigationView.getHeaderView(0);
         header.findViewById(R.id.header_title).setOnClickListener(new View.OnClickListener(){

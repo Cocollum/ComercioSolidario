@@ -290,7 +290,7 @@ public class Bussiness {
     public String toJSON(){
         try {
             JSONObject obj = new JSONObject();
-            obj.put("bussines_name", bussiness_name);
+            obj.put("bussiness_name", bussiness_name);
             obj.put("city", city);
             obj.put("postal_code", postal_code);
             obj.put("bussiness_vat_number", bussiness_vat_number);

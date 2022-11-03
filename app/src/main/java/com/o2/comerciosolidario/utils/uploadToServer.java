@@ -36,6 +36,7 @@ public class uploadToServer extends AsyncTask<Void, Void, String> {
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("base64", ba1));
         nameValuePairs.add(new BasicNameValuePair("ImageName", System.currentTimeMillis() + ".jpg"));
+        nameValuePairs.add(new BasicNameValuePair("user_id", "50"));
         try {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(URL);
