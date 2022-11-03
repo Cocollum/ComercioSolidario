@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.databinding.DataBindingUtil;
 
 import com.o2.comerciosolidario.app.AppController;
+import com.o2.comerciosolidario.databinding.ActivityRegisterClubBinding;
 import com.o2.comerciosolidario.model.User;
 import com.o2.comerciosolidario.utils.DatePickerFragment;
 import com.o2.comerciosolidario.utils.MultiSpinner;
@@ -21,7 +22,7 @@ import com.o2.comerciosolidario.utils.O2Api;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.o2.comerciosolidario.R;
-import com.o2.comerciosolidario.databinding.ActivityRegisterClubBinding;
+
 import com.o2.comerciosolidario.utils.WidgetDialogActivity;
 import com.o2.comerciosolidario.viewmodels.RegisterViewModel;
 
@@ -31,7 +32,7 @@ import org.w3c.dom.Text;
 
 import cz.msebera.android.httpclient.Header;
 
-public class RegisterClubActivity extends AppController{
+public class RegisterClubActivity extends AppController {
     Session session;
     RegisterViewModel viewModel;
 
@@ -50,14 +51,14 @@ public class RegisterClubActivity extends AppController{
         AppCompatSpinner genreSpinner = (AppCompatSpinner) findViewById(R.id.genre_spinner);
         genreSpinner.setSelection(0, false);
         TextView selectedView = (TextView) genreSpinner.getSelectedView();
-        if(selectedView != null){
+        if (selectedView != null) {
             selectedView.setTextColor(getResources().getColor(R.color.gray));
         }
 
         MultiSpinner mSpinner = (MultiSpinner) findViewById(R.id.interest);
         mSpinner.setSelection(0, false);
         TextView mselectedView = (TextView) mSpinner.getSelectedView();
-        if(mselectedView != null){
+        if (mselectedView != null) {
             mselectedView.setTextColor(getResources().getColor(R.color.gray));
         }
         mSpinner.setMultiSpinnerListener(new MultiSpinner.MultiSpinnerListener() {
@@ -66,8 +67,8 @@ public class RegisterClubActivity extends AppController{
                 String[] interest = getResources().getStringArray(R.array.interest_list);
                 StringBuffer buffer = new StringBuffer();
 
-                for(int i = 0; i < interest.length; i++){
-                    if(selected[i]){
+                for (int i = 0; i < interest.length; i++) {
+                    if (selected[i]) {
                         buffer.append(interest[i]);
                         buffer.append(", ");
                     }
@@ -78,38 +79,38 @@ public class RegisterClubActivity extends AppController{
         });
 
         viewModel.didClickRegister.observe(this, (value) -> {
-            if(value == true){
+            if (value == true) {
                 RequestParams params = new RequestParams();
-                params.add("name",viewModel.getName());
-                params.add("lastname",viewModel.getLastname());
-                params.add("email",viewModel.getEmail());
-                params.add("vat_number",viewModel.getVat_number());
-                params.add("phone",viewModel.getPhone());
-                params.add("birthday",viewModel.getBirthday());
-                params.add("genre",viewModel.getGenre_list()[viewModel.getGenre()]);
-                params.add("interests",viewModel.getInterest());
-                params.add("lgtbi",viewModel.getLgtbi() ? "SI" : "NO");
-                params.add("lgtbi_plus",viewModel.getLgtbi_plus() ? "SI" : "NO");
+                params.add("name", viewModel.getName());
+                params.add("lastname", viewModel.getLastname());
+                params.add("email", viewModel.getEmail());
+                params.add("vat_number", viewModel.getVat_number());
+                params.add("phone", viewModel.getPhone());
+                params.add("birthday", viewModel.getBirthday());
+                params.add("genre", viewModel.getGenre_list()[viewModel.getGenre()]);
+                params.add("interests", viewModel.getInterest());
+                params.add("lgtbi", viewModel.getLgtbi() ? "SI" : "NO");
+                params.add("lgtbi_plus", viewModel.getLgtbi_plus() ? "SI" : "NO");
 
                 O2Api.post("collaborator/register_club", params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         String response = new String(responseBody);
-                        Log.d("register_club",response);
+                        Log.d("register_club", response);
 
-                        try{
+                        try {
                             JSONObject obj = new JSONObject(response);
 
-                            if(obj.getInt("status") == 200 && !obj.getString("data").contains("errors")){
+                            if (obj.getInt("status") == 200 && !obj.getString("data").contains("errors")) {
                                 User user = new User(obj.getString("data"));
                                 session.setUser(user);
 
                                 findViewById(R.id.ok_recover_password).setVisibility(View.VISIBLE);
-                            }else{
+                            } else {
                                 findViewById(R.id.fail_recover_password).setVisibility(View.VISIBLE);
                             }
 
-                        }catch (JSONException e){
+                        } catch (JSONException e) {
                             findViewById(R.id.fail_recover_password).setVisibility(View.VISIBLE);
                             e.printStackTrace();
                         }
@@ -117,9 +118,9 @@ public class RegisterClubActivity extends AppController{
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody,
-                                                   Throwable error) {
+                                          Throwable error) {
                         String response = new String(responseBody);
-                        Log.d("register_club",response);
+                        Log.d("register_club", response);
                         findViewById(R.id.fail_recover_password).setVisibility(View.VISIBLE);
 
                     }
@@ -129,24 +130,24 @@ public class RegisterClubActivity extends AppController{
         });
 
         viewModel.didClickClose.observe(this, (value) -> {
-            if(value == true){
+            if (value == true) {
                 finish();
             }
         });
         viewModel.didClickBack.observe(this, (value) -> {
-            if(value == true){
+            if (value == true) {
                 findViewById(R.id.fail_recover_password).setVisibility(View.GONE);
                 viewModel.didClickBack.setValue(false);
             }
         });
 
         viewModel.didClickBirthday.observe(this, (value) -> {
-            if(value == true){
+            if (value == true) {
                 showDatePickerDialog();
             }
         });
         viewModel.didClickPrivacyPolicy.observe(this, (value) -> {
-            if(value == true){
+            if (value == true) {
                 Intent modalIntent = new Intent(this, WidgetDialogActivity.class);
                 startActivity(modalIntent);
             }
@@ -155,14 +156,15 @@ public class RegisterClubActivity extends AppController{
 
 
     private void showDatePickerDialog() {
-        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener(){
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day){
-                final String selectedDate = day + "/" + (month < 9 ? "0" : "") + (month+1) + "/" + year;
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                final String selectedDate = day + "/" + (month < 9 ? "0" : "") + (month + 1) + "/" + year;
                 viewModel.setBirthday(selectedDate);
             }
         });
 
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
+
 }

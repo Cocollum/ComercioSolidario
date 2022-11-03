@@ -252,6 +252,9 @@ public class RegisterViewModel extends BaseViewModel{
     public void onClickPrivacyPolicy(){
         this.didClickPrivacyPolicy.setValue(true);
     }
+    public void onContactClubChange(View view, Boolean checked){
+        this.didChangeContactClub.setValue(checked);
+    }
     public void onContactFreelanceChange(View view, Boolean checked){
         this.didChangeContactFreelance.setValue(checked);
     }
