@@ -1,17 +1,26 @@
 package com.o2.comerciosolidario.view.activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.o2.comerciosolidario.app.AppController;
+
 import com.o2.comerciosolidario.databinding.ActivityRegisterClubBinding;
 import com.o2.comerciosolidario.model.User;
 import com.o2.comerciosolidario.utils.DatePickerFragment;
@@ -29,6 +38,9 @@ import com.o2.comerciosolidario.viewmodels.RegisterViewModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -49,34 +61,16 @@ public class RegisterClubActivity extends AppController {
         binding.setViewModel(viewModel);
 
         AppCompatSpinner genreSpinner = (AppCompatSpinner) findViewById(R.id.genre_spinner);
-        genreSpinner.setSelection(0, false);
-        TextView selectedView = (TextView) genreSpinner.getSelectedView();
-        if (selectedView != null) {
-            selectedView.setTextColor(getResources().getColor(R.color.gray));
+        this.configureAppCompatSpinner(genreSpinner, getResources().getStringArray(R.array.genre_list));
+        genreSpinner.setSelection(0,false);
+        TextView selected_View = (TextView) genreSpinner.getSelectedView();
+        if (selected_View != null) {
+            selected_View.setTextColor(getResources().getColor(R.color.gray));
         }
 
-        MultiSpinner mSpinner = (MultiSpinner) findViewById(R.id.interest);
-        mSpinner.setSelection(0, false);
-        TextView mselectedView = (TextView) mSpinner.getSelectedView();
-        if (mselectedView != null) {
-            mselectedView.setTextColor(getResources().getColor(R.color.gray));
-        }
-        mSpinner.setMultiSpinnerListener(new MultiSpinner.MultiSpinnerListener() {
-            @Override
-            public void onItemsSelected(boolean[] selected) {
-                String[] interest = getResources().getStringArray(R.array.interest_list);
-                StringBuffer buffer = new StringBuffer();
 
-                for (int i = 0; i < interest.length; i++) {
-                    if (selected[i]) {
-                        buffer.append(interest[i]);
-                        buffer.append(", ");
-                    }
-                }
-
-                viewModel.setInterest(buffer.toString());
-            }
-        });
+        TextView interests = (TextView) findViewById(R.id.interest);
+        this.configureInterestsList(interests, getResources().getStringArray(R.array.interest_list));
 
         viewModel.didClickRegister.observe(this, (value) -> {
             if (value == true) {
@@ -124,7 +118,6 @@ public class RegisterClubActivity extends AppController {
                         findViewById(R.id.fail_recover_password).setVisibility(View.VISIBLE);
 
                     }
-
                 });
             }
         });
@@ -154,6 +147,118 @@ public class RegisterClubActivity extends AppController {
         });
     }
 
+    private void configureInterestsList(TextView interests, String[] list) {
+
+        boolean[] selectedInteres;
+        ArrayList<Integer> selected = new ArrayList<>();
+
+        selectedInteres = new boolean[list.length];
+
+            interests.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterClubActivity.this);
+                    builder.setTitle("Intereses");
+                    builder.setCancelable(false);
+
+                    builder.setMultiChoiceItems(list, selectedInteres, new DialogInterface.OnMultiChoiceClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                            if (b) {
+                                selected.add(i);
+                                Collections.sort(selected);
+                            } else {
+                                selected.remove(Integer.valueOf(i));
+                            }
+                        }
+                    });
+                    
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            StringBuilder stringBuilder = new StringBuilder();
+                            for (int j = 0; j < selected.size(); j++) {
+                                stringBuilder.append(list[selected.get(j)]);
+                                if (j != selected.size() - 1) {
+                                    stringBuilder.append(", ");
+                                }
+                            }
+                            viewModel.setInterest(stringBuilder.toString());
+
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            for (int j = 0; j < selectedInteres.length; j++) {
+                                selected.clear();
+                                interests.setText("");
+                            }
+                        }
+                    });
+                    builder.show();
+                }
+            });
+        }
+
+    private void configureAppCompatSpinner(AppCompatSpinner spinner, String[] list) {
+
+        spinner.setSelection(0, false);
+        TextView selectedView = (TextView) spinner.getSelectedView();
+        if (selectedView != null) {
+            selectedView.setTextAppearance(getBaseContext(),R.style.spinner_style);
+        }
+
+        SpinnerAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list) {
+
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    // First item will be used for hint
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+
+                return view;
+            }
+        };
+
+        if(spinner != null) {
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    if(i == 0){
+                        ((TextView) view).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
+                    }else{
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.GREEN);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                     adapterView.setSelection(0);
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(Color.GRAY);
+                }
+            });
+            spinner.setAdapter(adapter);
+            spinner.setSelection(0);
+        }
+    }
 
     private void showDatePickerDialog() {
         DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {

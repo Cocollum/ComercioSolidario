@@ -41,6 +41,7 @@
         <item name="android:layout_marginBottom">15dp</item>
         <item name="android:fontFamily">@font/raleway</item>
         <item name="android:fontWeight">600</item>
+
         <item name="android:textColor">@color/black</item>
     </style>
     <style name="h2">
@@ -69,9 +70,10 @@
     </style>
     <style name="spinner_style">
         <item name="android:background">@drawable/form_control_border</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">4dp</item>
         <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:fontFamily">@font/raleway_bold</item>
+        <item name="android:fontFamily">@font/raleway</item>
+        <item name="android:textSize">50px</item>
         <item name="android:fontWeight">600</item>
     </style>
     <style name="card">
