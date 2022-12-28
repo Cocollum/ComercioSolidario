@@ -136,8 +136,8 @@
                         style="@style/form_control"
                         android:layout_width="match_parent"
                         android:hint="Intereses"
-                        android:selectedItemPosition="@={viewModel.sector}"
                         android:layout_height="wrap_content"
+                        android:text="@={viewModel.bussiness.sector}"
                         android:entries="@array/interest_list"/>
                     <EditText
                         style="@style/form_control"
@@ -367,7 +367,7 @@
                         style="@style/form_control"
                         android:layout_width="match_parent"
                         android:hint="Intereses"
-                        android:selectedItemPosition="@={viewModel.sector}"
+                        android:text="@={viewModel.bussiness.partner_interest}"
                         android:layout_height="wrap_content"
                         android:entries="@array/interest_list"/>
                     <Switch
