@@ -106,20 +106,20 @@
 
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/genre_spinner"
-                    style="@style/form_control"
+                    style="@style/spinner_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/genre_list"
-                    android:selectedItemPosition="@={viewModel.genre}"
-                    android:hint="Genero" />
-
-                <com.o2.comerciosolidario.utils.MultiSpinner
+                    android:hint="Genero"
+                    android:selectedItemPosition="@={viewModel.genre}" />
+                <TextView
                     android:id="@+id/interest"
                     style="@style/form_control"
                     android:layout_width="match_parent"
+                    android:hint="Intereses"
+                    android:text="@={viewModel.interest}"
                     android:layout_height="wrap_content"
-                    android:entries="@array/interest_list"
-                    android:hint="Intereses" />
+                    android:entries="@array/interest_list"/>
 
                 <Switch
                     style="@style/form_control"

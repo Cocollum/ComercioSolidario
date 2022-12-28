@@ -8,7 +8,6 @@
         <item>Otro</item>
     </string-array>
     <string-array name="interest_list">
-        <item>Intereses</item>
         <item>Estética</item>
         <item>Salud</item>
         <item>Ocio nocturno</item>

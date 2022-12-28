@@ -16,6 +16,8 @@ public class O2Api {
     }
 
     public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+
+        client.setConnectTimeout(10000);
         Log.d("url", getAbsoluteUrl(url));
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }

@@ -15,6 +15,7 @@ import com.o2.comerciosolidario.view.activity.IntroFragment;
 
 import java.util.ArrayList;
 
+import androidx.core.view.GravityCompat;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
@@ -69,7 +70,6 @@ public class HomeViewModel extends BaseViewModel {
                             for (int i = 0; i < arr.length(); i++) {
                                 filters.add(arr.getString(i));
                             }
-
                             setFilters(filters);
                             filteredItems.setValue(filters);
                         }
@@ -94,7 +94,6 @@ public class HomeViewModel extends BaseViewModel {
         didClickJumpIntro.setValue(false);
         didChangeCheckAllCheckbox.setValue(true);
         didClickRRSS.setValue("");
-
         get_filters();
 
     }
@@ -104,7 +103,6 @@ public class HomeViewModel extends BaseViewModel {
         didClickJumpIntro.setValue(false);
         didChangeCheckAllCheckbox.setValue(true);
         didClickRRSS.setValue("");
-
         get_filters();
     }
 
@@ -182,15 +180,15 @@ public class HomeViewModel extends BaseViewModel {
         notifyPropertyChanged(BR.filters);
     }
 
-    @Bindable
-    public Boolean getFiltersVisibility() {
-        return filtersVisibility;
-    }
+   @Bindable
+   public Boolean getFiltersVisibility() {
+       return filtersVisibility;
+   }
 
-    public void setFiltersVisibility(Boolean filtersVisibility) {
-        this.filtersVisibility = filtersVisibility;
-        notifyPropertyChanged(BR.filtersVisibility);
-    }
+   public void setFiltersVisibility(Boolean filtersVisibility) {
+       this.filtersVisibility = filtersVisibility;
+       notifyPropertyChanged(BR.filtersVisibility);
+   }
 
     @Bindable
     public Boolean getLgtbi_friendly_checked() {
@@ -232,9 +230,8 @@ public class HomeViewModel extends BaseViewModel {
     public void onClickJumpIntro(){
         didClickJumpIntro.setValue(true);
     }
-
-    public void onClickCloseFilters(){ setFiltersVisibility(false); }
     public void onClickOpenFilters(){ setFiltersVisibility(true); }
+    public void onClickCloseFilters(){ setFiltersVisibility(false);}
     public void onClickRRSS(View v){ didClickRRSS.postValue((String) v.getTag()); }
     public void onClickIntro(){ didClickIntro.postValue(true); }
     public void onClickRegister(){ didClickRegister.postValue(true); }
@@ -257,9 +254,9 @@ public class HomeViewModel extends BaseViewModel {
 
     public void onChangeCheckAllCheckbox(View v){
         Boolean isChecked = ((CheckBox) v).isChecked();
-
-
         didChangeCheckAllCheckbox.setValue(isChecked);
     }
 
 }
+
+
