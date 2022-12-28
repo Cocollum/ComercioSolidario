@@ -8,18 +8,16 @@
         <item>Otro</item>
     </string-array>
     <string-array name="interest_list">
-        <item>Intereses</item>
-        <item>Alimentación</item>
-        <item>Asesoría jurídica</item>
-        <item>Asociaciones/Fundaciones</item>
-        <item>Bares y Restaurantes</item>
         <item>Estética</item>
-        <item>Mascotas</item>
-        <item>Moda</item>
-        <item>Ocio nocturno</item>
-        <item>Organización de eventos</item>
         <item>Salud</item>
+        <item>Ocio nocturno</item>
+        <item>Moda</item>
+        <item>Bares y Restaurantes</item>
+        <item>Asociaciones/Fundaciones</item>
+        <item>Asistencia jurídica</item>
         <item>Otros</item>
+        <item>Mascotas</item>
+        <item>Organización de eventos</item>
     </string-array>
     <string-array name="department_list">
         <item>Salud</item>

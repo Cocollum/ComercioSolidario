@@ -11,10 +11,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,17 +53,18 @@ public class MainActivity extends AppController implements NavigationView.OnNavi
         viewModel = new HomeViewModel();
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
         binding.setViewModel(viewModel);
 
         session = new Session(getApplicationContext());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
+
         /*setSupportActionBar(toolbar);*/
         //toolbar.setTitleTextColor(getResources().getColor(R.color.gray));
 
         drawerLayout = findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -83,12 +87,12 @@ public class MainActivity extends AppController implements NavigationView.OnNavi
         header.findViewById(R.id.header_title).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+
                 Fragment fragment = new HomeContentFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.home_content, fragment).commit();
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-
             }
         });
 
@@ -111,36 +115,36 @@ public class MainActivity extends AppController implements NavigationView.OnNavi
 
         navigationView.getMenu().findItem(R.id.dashboard)
                 .setIcon(new IconDrawable(this, FontAwesomeIcons.fa_home)
-                .colorRes(R.color.white)
-                .actionBarSize());
+                        .colorRes(R.color.white)
+                        .actionBarSize());
         navigationView.getMenu().findItem(R.id.login)
                 .setIcon(new IconDrawable(this, FontAwesomeIcons.fa_star)
-                .colorRes(R.color.white)
-                .actionBarSize());
+                        .colorRes(R.color.white)
+                        .actionBarSize());
         navigationView.getMenu().findItem(R.id.club)
                 .setIcon(new IconDrawable(this, FontAwesomeIcons.fa_user)
-                .colorRes(R.color.white)
-                .actionBarSize());
+                        .colorRes(R.color.white)
+                        .actionBarSize());
         /*navigationView.getMenu().findItem(R.id.register)
                 .setIcon(new IconDrawable(this, FontAwesomeIcons.fa_map_marker)
-                .colorRes(R.color.white)
-                .actionBarSize());
+                        .colorRes(R.color.white)
+                        .actionBarSize());
         navigationView.getMenu().findItem(R.id.how_to)
-                .setIcon(new IconDrawable(this, FontAwesomeIcons.fa_user)
-                .colorRes(R.color.white)
-                .actionBarSize());*/
+                        .setIcon(new IconDrawable(this, FontAwesomeIcons.fa_user)
+                        .colorRes(R.color.white)
+                        .actionBarSize());*/
         navigationView.getMenu().findItem(R.id.contact)
                 .setIcon(new IconDrawable(this, FontAwesomeIcons.fa_envelope)
-                .colorRes(R.color.white)
-                .actionBarSize());
+                        .colorRes(R.color.white)
+                        .actionBarSize());
         navigationView.getMenu().findItem(R.id.about_us)
                 .setIcon(new IconDrawable(this, FontAwesomeIcons.fa_info_circle)
-                .colorRes(R.color.white)
-                .actionBarSize());
+                        .colorRes(R.color.white)
+                        .actionBarSize());
         navigationView.getMenu().findItem(R.id.logout)
                 .setIcon(new IconDrawable(this, FontAwesomeIcons.fa_sign_out)
-                .colorRes(R.color.white)
-                .actionBarSize());
+                        .colorRes(R.color.white)
+                        .actionBarSize());
     }
 
     public int checkNavigationMenuItem(){
@@ -170,6 +174,7 @@ public class MainActivity extends AppController implements NavigationView.OnNavi
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem){
+
         int title;
         Intent browser = null;
         Fragment fragment = null;
@@ -242,19 +247,17 @@ public class MainActivity extends AppController implements NavigationView.OnNavi
 
     @Override
     public void onDrawerSlide(@NonNull View view, float v){
-
     }
 
     @Override
     public void onDrawerOpened(@NonNull View view){
-    }
+     }
 
     @Override
-    public void onDrawerClosed(@NonNull View view){
+    public void onDrawerClosed(@NonNull View view) {
     }
 
     @Override
     public void onDrawerStateChanged(int i) {
-
     }
 }

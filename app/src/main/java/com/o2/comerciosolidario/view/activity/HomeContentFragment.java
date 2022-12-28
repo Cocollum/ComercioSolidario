@@ -135,7 +135,6 @@ public class HomeContentFragment extends Fragment {
                     items.add(checkbox.getText().toString());
                 }
             }
-
             viewModel.filteredItems.postValue(items);
         });
 
@@ -218,7 +217,11 @@ public class HomeContentFragment extends Fragment {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody,
                                   Throwable error) {
-
+                error.printStackTrace();
+                if(responseBody != null) {
+                    String response = new String(responseBody);
+                    Log.e("get_near_collaborators", response);
+                }
             }
         });
     }
@@ -274,11 +277,9 @@ public class HomeContentFragment extends Fragment {
                             == PackageManager.PERMISSION_GRANTED) {
                         requestLocation();
                     }
-
                 }
                 return;
             }
-
         }
     }
 

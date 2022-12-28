@@ -1,10 +1,11 @@
 package com.o2.comerciosolidario.view.activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,9 +25,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.o2.comerciosolidario.R;
 import com.o2.comerciosolidario.app.AppController;
-
 import com.o2.comerciosolidario.databinding.ActivityRegisterBussinessBinding;
-import com.o2.comerciosolidario.databinding.ActivityRegisterClubBinding;
 import com.o2.comerciosolidario.model.Bussiness;
 import com.o2.comerciosolidario.model.User;
 import com.o2.comerciosolidario.utils.DatePickerFragment;
@@ -38,6 +37,9 @@ import com.o2.comerciosolidario.viewmodels.RegisterViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -67,15 +69,13 @@ public class RegisterBussinessActivity extends AppController {
         if (selectedView != null) {
             selectedView.setTextColor(getResources().getColor(R.color.gray));
         }
+        selectedView.setTextAppearance(this, R.style.spinner_style);
 
-        AppCompatSpinner sector_spinner = ((AppCompatSpinner) findViewById(R.id.sector_spinner));
-        this.configureSpinner(sector_spinner, getResources().getStringArray(R.array.interest_list));
-        sector_spinner.setSelection(0, false);
-        TextView selected_View = (TextView) sector_spinner.getSelectedView();
-        if (selected_View != null) {
-            selected_View.setTextColor(getResources().getColor(R.color.gray));
-        }
+        TextView sector_interests = (TextView) findViewById(R.id.sector_interests);
+        this.configureInterestsList(sector_interests, getResources().getStringArray(R.array.interest_list));
 
+        TextView interests = (TextView) findViewById(R.id.interests);
+        this.configureInterestsList(interests, getResources().getStringArray(R.array.interest_list));
 
         viewModel.didChangeContactFreelance.observe(this, (value) -> {
             Bussiness bussiness = viewModel.getBussiness();
@@ -90,21 +90,21 @@ public class RegisterBussinessActivity extends AppController {
                 bussiness.setContact_email("");
                 bussiness.setContact_phone("");
             }
-
             viewModel.setBussiness(bussiness);
         });
         viewModel.didChangeContactClub.observe(this, (value) -> {
             Bussiness bussiness = viewModel.getBussiness();
             if(value == true){
-                bussiness.setPartner_name(bussiness.getBussiness_name());
                 bussiness.setPartner_email(bussiness.getBussiness_email());
                 bussiness.setPartner_phone(bussiness.getBussiness_phone());
+                bussiness.setPartner_lgtbi(bussiness.getPartner_lgtbi());
+                bussiness.setPartner_lgtbi_plus(bussiness.getPartner_lgtbi_plus());
             }else{
-                bussiness.setPartner_name("");
                 bussiness.setPartner_email("");
                 bussiness.setPartner_phone("");
+                bussiness.setPartner_lgtbi(false);
+                bussiness.setPartner_lgtbi_plus(false);
             }
-
             viewModel.setBussiness(bussiness);
         });
 
@@ -140,9 +140,7 @@ public class RegisterBussinessActivity extends AppController {
                         String response = new String(responseBody);
                         Log.d("register_bussiness", response);
                         findViewById(R.id.fail_recover_password).setVisibility(View.VISIBLE);
-
                     }
-
                 });
             }
         });
@@ -173,59 +171,113 @@ public class RegisterBussinessActivity extends AppController {
         });
     }
 
-    private void configureSpinner(AppCompatSpinner spinner, String[] list) {
-
-        spinner.setSelection(0, false);
-        TextView selectedView = (TextView) spinner.getSelectedView();
-        if (selectedView != null) {
-            selectedView.setTextAppearance(getBaseContext(),R.style.spinner_style );
-        }
-
-        SpinnerAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list) {
-
-            @Override
-            public boolean isEnabled(int position) {
-                if (position == 0) {
-                    // Disable the first item from Spinner
-                    // First item will be used for hint
-                    return false;
-                } else {
-                    return true;
-                }
+        private void configureSpinner(AppCompatSpinner spinner, String[] list) {
+            spinner.setSelection(0, false);
+            TextView selectedView = (TextView) spinner.getSelectedView();
+            if (selectedView != null) {
+                selectedView.setTextAppearance(getBaseContext(),R.style.spinner_style);
             }
+            SpinnerAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list) {
 
-
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-
-                return view;
-            }
-        };
-
-        if(spinner != null) {
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    if(i == 0){
-                        ((TextView) view).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
-                    }else{
-                        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.GREEN);
+                public boolean isEnabled(int position) {
+                    if (position == 0) {
+                        // Disable the first item from Spinner
+                        // First item will be used for hint
+                        return false;
+                    } else {
+                        return true;
                     }
                 }
 
                 @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(Color.GRAY);
+                public View getDropDownView(int position, View convertView,
+                                            ViewGroup parent) {
+                    View view = super.getDropDownView(position, convertView, parent);
+                    return view;
+                }
+            };
+
+            if(spinner != null) {
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        if(i == 0){
+                            ((TextView) view).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
+                        }else{
+                            ((TextView) adapterView.getChildAt(0)).setTextColor(Color.GREEN);
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.GRAY);
+                    }
+                });
+                spinner.setAdapter(adapter);
+                spinner.setSelection(0);
+            }
+        }
+
+        private void configureInterestsList(TextView interests, String[] list) {
+            boolean[] selectedInteres;
+            ArrayList<Integer> selected = new ArrayList<>();
+
+            selectedInteres = new boolean[list.length];
+
+            interests.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterBussinessActivity.this);
+                    builder.setTitle("Intereses");
+                    builder.setCancelable(false);
+
+                    builder.setMultiChoiceItems(list, selectedInteres, new DialogInterface.OnMultiChoiceClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                            if (b) {
+                                selected.add(i);
+                                Collections.sort(selected);
+                            } else {
+                                selected.remove(Integer.valueOf(i));
+                            }
+                        }
+                    });
+
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            StringBuilder stringBuilder = new StringBuilder();
+                            for (int j = 0; j < selected.size(); j++) {
+                                stringBuilder.append(list[selected.get(j)]);
+                                if (j != selected.size() - 1) {
+                                    stringBuilder.append(", ");
+                                }
+                            }
+                            viewModel.setInterest(stringBuilder.toString());
+
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            for (int j = 0; j < selectedInteres.length; j++) {
+                                selected.clear();
+                                interests.setText("");
+                            }
+                        }
+                    });
+                    builder.show();
                 }
             });
-            spinner.setAdapter(adapter);
-
-            spinner.setSelection(0);
         }
-    }
-
     private void showDatePickerDialog() {
         DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener(){
             @Override
@@ -234,7 +286,6 @@ public class RegisterBussinessActivity extends AppController {
                 viewModel.setPartner_birthday(selectedDate);
             }
         });
-
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 }
