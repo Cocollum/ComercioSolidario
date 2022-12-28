@@ -97,12 +97,12 @@ public class RegisterBussinessActivity extends AppController {
             Bussiness bussiness = viewModel.getBussiness();
             if(value == true){
                 bussiness.setPartner_name(bussiness.getBussiness_name());
-                bussiness.setContact_email(bussiness.getBussiness_email());
-                bussiness.setContact_phone(bussiness.getBussiness_phone());
+                bussiness.setPartner_email(bussiness.getBussiness_email());
+                bussiness.setPartner_phone(bussiness.getBussiness_phone());
             }else{
                 bussiness.setPartner_name("");
-                bussiness.setContact_email("");
-                bussiness.setContact_phone("");
+                bussiness.setPartner_email("");
+                bussiness.setPartner_phone("");
             }
 
             viewModel.setBussiness(bussiness);

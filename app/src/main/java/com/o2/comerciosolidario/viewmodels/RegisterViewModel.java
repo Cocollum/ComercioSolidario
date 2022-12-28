@@ -167,15 +167,6 @@ public class RegisterViewModel extends BaseViewModel{
         return index < 0 ? 0 : index;
     }
 
-    public void setContact_type(int index) {
-        this.contact_type = this.contact_type_list[index];
-        this.bussiness.setPartner_type(this.contact_type_list[index]);
-        notifyPropertyChanged(BR.contact_type);
-    }
-
-    public String[] getContact_type_list() {
-        return contact_type_list;
-    }
 
     public void setContact_type_list(String[] contact_type_list) {
         this.contact_type_list = contact_type_list;

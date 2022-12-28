@@ -1,7 +1,11 @@
 package com.o2.comerciosolidario.model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Bussiness {
     private String bussiness_name = "";
@@ -21,8 +25,8 @@ public class Bussiness {
     private String facebook="";
     private String instagram="";
     private String linkedin="";
-    private String tweeter="";
-    private String [] social_media ={};
+    private String twitter="";
+    private HashMap<String, String> social_media = new HashMap<String, String>();
     private Boolean contact_freelance = false;
     private Boolean contact_club = false;
     private String contact_name = "";
@@ -39,9 +43,8 @@ public class Bussiness {
     private String partner_interest = "";
     private Boolean partner_lgtbi = false;
     private Boolean partner_lgtbi_plus = false;
-    private String partner_type = "";
-
-
+    private Boolean privacy_policy = false;
+    private Boolean receive_marketing = false;
 
     public String getBussiness_name() {
         return bussiness_name;
@@ -179,16 +182,6 @@ public class Bussiness {
         this.contact_phone = contact_phone;
     }
 
-
-
-    public String getPartner_type() {
-        return partner_type;
-    }
-
-    public void setPartner_type(String partner_type) {
-        this.partner_type = partner_type;
-    }
-
     public Boolean getContact_club() {
         return contact_club;
     }
@@ -221,13 +214,15 @@ public class Bussiness {
         this.bussiness_lgtbi_plus = bussiness_lgtbi_plus;
     }
 
-    public String[] getSocial_media() {
-        social_media= new String[] {getFacebook(), getInstagram(), getLinkedin(), getTweeter()};
-        return social_media;
-    }
+    public HashMap<String, String> getSocial_media() {
+        HashMap<String, String> social_media = new HashMap<String,String>();
 
-    public void setSocial_media(String[] social_media) {
-        this.social_media = social_media;
+        social_media.put("facebook", facebook);
+        social_media.put("twitter", twitter);
+        social_media.put("instagram", instagram);
+        social_media.put("linkedin", linkedin);
+
+        return social_media;
     }
 
     public String getFacebook() {
@@ -251,11 +246,11 @@ public class Bussiness {
     public void setLinkedin(String linkedin) {
         this.linkedin = linkedin;
     }
-    public String getTweeter() {
-        return tweeter;
+    public String getTwitter() {
+        return twitter;
     }
-    public void setTweeter(String tweeter) {
-        this.tweeter = tweeter;
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
     }
 
     public String getPartner_name() {
@@ -330,6 +325,30 @@ public class Bussiness {
         this.partner_lgtbi_plus = partner_lgtbi_plus;
     }
 
+    public Boolean getPrivacy_policy() {
+        return privacy_policy;
+    }
+
+    public void setPrivacy_policy(Boolean privacy_policy) {
+        this.privacy_policy = privacy_policy;
+    }
+
+    public Boolean getReceive_marketing() {
+        return receive_marketing;
+    }
+
+    public void setReceive_marketing(Boolean receive_marketing) {
+        this.receive_marketing = receive_marketing;
+    }
+    public String HashMapToJson(HashMap<String,String> map) throws JSONException{
+        JSONObject array = new JSONObject();
+        for(Map.Entry<String, String> set : map.entrySet()){
+            array.put(set.getKey(), set.getValue());
+        }
+
+        return array.toString();
+    }
+
     public String toJSON(){
         try {
             JSONObject obj = new JSONObject();
@@ -341,14 +360,14 @@ public class Bussiness {
             obj.put("bussiness_phone", bussiness_phone);
             obj.put("bussiness_phone_alt", bussiness_phone_alt);
             obj.put("bussiness_email", bussiness_email);
-            obj.put("bussiness_lgtbi", bussiness_lgtbi);
-            obj.put("bussiness_lgbti_plus", bussiness_lgtbi_plus);
+            obj.put("bussiness_lgtbi", bussiness_lgtbi ? "yes" : "no");
+            obj.put("bussiness_lgbti_plus", bussiness_lgtbi_plus ? "yes" : "no");
             obj.put("activity", activity);
             obj.put("sector", sector);
-            obj.put("social_media", social_media);
+            obj.put("social_media", HashMapToJson(getSocial_media()));
             obj.put("sector_other", sector_other);
-            obj.put("contact_freelance", contact_freelance);
-            obj.put("contact_club", contact_club);
+            obj.put("contact_freelance", contact_freelance ? "yes" : "no");
+            obj.put("contact_club", contact_club ? "yes" : "no");
             obj.put("contact_name", contact_name);
             obj.put("contact_lastname", contact_lastname);
             obj.put("contact_var_number", contact_vat_number);
@@ -357,11 +376,12 @@ public class Bussiness {
             obj.put("partner_lastname", partner_lastname);
             obj.put("partner_email", partner_email);
             obj.put("partner_phone", partner_phone);
-            obj.put("partner_lgtbi", partner_lgtbi);
             obj.put("partner_genre", partner_genre);
             obj.put("partner_interest", partner_interest);
-            obj.put("partner_lgtbi_plus", partner_lgtbi_plus);
-            obj.put("partner_type", partner_type);
+            obj.put("partner_lgtbi", partner_lgtbi ? "yes" : "no");
+            obj.put("partner_lgtbi_plus", partner_lgtbi_plus ? "yes" : "no");
+            obj.put("privacy_policy", privacy_policy == true ? "yes" : "no");
+            obj.put("receive_marketing", receive_marketing ? "yes" : "no");
 
             return obj.toString();
         }catch(JSONException e){
