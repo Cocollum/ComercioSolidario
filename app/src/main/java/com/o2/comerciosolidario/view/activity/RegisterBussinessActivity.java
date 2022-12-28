@@ -220,6 +220,8 @@ public class RegisterBussinessActivity extends AppController {
         }
 
         private void configureInterestsList(TextView interests, String[] list) {
+        Integer interestsId = interests.getId();
+            System.out.println(interestsId);
             boolean[] selectedInteres;
             ArrayList<Integer> selected = new ArrayList<>();
 
@@ -254,7 +256,13 @@ public class RegisterBussinessActivity extends AppController {
                                     stringBuilder.append(", ");
                                 }
                             }
-                            viewModel.setInterest(stringBuilder.toString());
+                            Bussiness bussiness = viewModel.getBussiness();
+                            if(interestsId==2131362199) {
+                                bussiness.setSector(stringBuilder.toString());
+                            }else {
+                                    bussiness.setPartner_interest(stringBuilder.toString());
+                            }
+                            viewModel.setBussiness(bussiness);
 
                         }
                     });
@@ -270,7 +278,7 @@ public class RegisterBussinessActivity extends AppController {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             for (int j = 0; j < selectedInteres.length; j++) {
                                 selected.clear();
-                                interests.setText("");
+                                viewModel.setInterest("");
                             }
                         }
                     });
